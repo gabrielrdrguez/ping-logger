@@ -5,7 +5,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
 # Gems do Rails Assets
 source 'https://rails-assets.org' do
   gem 'rails-assets-animate.css'
@@ -19,7 +18,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
 end
 
-
+gem 'mysql2'
 gem 'bootstrap', '~> 4.0.0.alpha6'
 gem 'chartkick'
 gem 'font-awesome-rails'

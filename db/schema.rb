@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170514003352) do
+ActiveRecord::Schema.define(version: 20170514003353) do
 
-  create_table "ping_logs", force: :cascade do |t|
-    t.string "log"
-    t.string "ping"
-    t.string "ip"
+  create_table "ping_logs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin" do |t|
+    t.string "log", limit: 300
+    t.integer "ping"
+    t.string "ip", limit: 15
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
 end

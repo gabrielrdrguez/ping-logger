@@ -49,9 +49,13 @@ $(document).ready(function() {
     });
 
     function createChart() {
+        Highcharts.setOptions({
+            global: {
+                useUTC: false
+            }
+        });
 
         Highcharts.stockChart('container', {
-
             rangeSelector: {
                 buttons: [{
                     type: 'minute',
