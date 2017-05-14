@@ -1,0 +1,2 @@
+class PingLog < ApplicationRecord
+end
