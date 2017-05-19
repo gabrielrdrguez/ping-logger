@@ -3,7 +3,7 @@ $(document).ready(function() {
 
     var seriesOptions = [],
         seriesCounter = 0,
-        names = ['50.116.39.117', '45.32.213.58', '107.191.103.239', '200.147.67.142'];
+        names = $('#ping-log-page').data("ips");
 
     /**
      * Create the chart when all data is loaded

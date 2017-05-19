@@ -10,4 +10,6 @@ Rails.application.routes.draw do
       get :data_chart, format: :json
     end
   end
+
+  resources :ips
 end

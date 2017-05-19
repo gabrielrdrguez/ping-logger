@@ -7,5 +7,13 @@ class CreatePingLogs < ActiveRecord::Migration[5.1]
       t.string 'ip', limit: 15
       t.timestamps
     end
+
+    create_table :ips do |t|
+      t.string 'ip',  limit: 15
+      t.string 'descricao'
+      t.string 'localidade'
+      t.timestamps
+    end
+
   end
 end

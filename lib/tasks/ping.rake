@@ -15,24 +15,23 @@ namespace :ping do
   task start: :environment do
     ActiveRecord::Base.logger = Logger.new(STDOUT)
     Rails.logger.level = Logger::DEBUG
-    sleep_seconds = 0.1
+    sleep_seconds = 0.2
+    last_check = Time.zone.now
+    ip_array = []
     while true do
-      ping_linode_atlanta = `ping 50.116.39.117 -c 1`
-      ping_ms_linode_atlanta = /time=[[:digit:]]*/.match(ping_linode_atlanta).to_s.gsub('time=','').to_i
-      ping_uol = `ping 200.147.67.142 -c 1`
-      ping_ms_uol = /time=[[:digit:]]*/.match(ping_uol).to_s.gsub('time=','').to_i
-      ping_vultr_atlanta = `ping 45.32.213.58 -c 1`
-      ping_ms_vultr = /time=[[:digit:]]*/.match(ping_vultr_atlanta).to_s.gsub('time=','').to_i
-      ping_ramnode = `ping 107.191.103.239 -c 1`
-      ping_ms_ramnode = /time=[[:digit:]]*/.match(ping_ramnode).to_s.gsub('time=','').to_i
-      time = Time.zone.now
       ActiveRecord::Base.transaction do
-        PingLog.create(log: ping_uol, ping: ping_ms_uol, ip: '200.147.67.142', created_at: time)
-        PingLog.create(log: ping_vultr_atlanta, ping: ping_ms_vultr, ip: '45.32.213.58', created_at: time)
-        PingLog.create(log: ping_ramnode, ping: ping_ms_ramnode, ip: '107.191.103.239', created_at: time)
-        PingLog.create(log: ping_linode_atlanta, ping: ping_ms_linode_atlanta, ip: '50.116.39.117', created_at: time)
+        if (last_check - Time.zone.now) < 30.seconds
+          ip_array = Ip.pluck(:ip)
+          last_check = Time.zone.now
+        end
+
+        ip_array.each do |ip|
+          ping_log = `ping #{ip} -c 1`
+          ping_val = /time=[[:digit:]]*/.match(ping_log).to_s.gsub('time=','').to_i
+          PingLog.create(log: ping_log, ping: ping_val, ip: ip, created_at: Time.zone.now)
+        end
+        sleep sleep_seconds
       end
-      sleep sleep_seconds
     end
   end
 end

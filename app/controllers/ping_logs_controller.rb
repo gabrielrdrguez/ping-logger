@@ -3,6 +3,7 @@ class PingLogsController < ApplicationController
 
   def index
     @pings = PingLog.order(created_at: :desc).limit(1000)
+    @ips = Ip.pluck(:ip)
   end
 
   def start_job
@@ -16,7 +17,7 @@ class PingLogsController < ApplicationController
   end
 
   def data_chart
-    query = PingLog.select(:ping, :created_at).where("ip like '#{params[:ip]}'").where('created_at >= :one_hour_ago', :one_hour_ago => 6.hour.ago)
+    query = PingLog.select(:ping, :created_at).where("ip like '#{params[:ip]}'").where('created_at >= :one_hour_ago', :one_hour_ago => 1.hour.ago)
     array = query.map do |pinglog|
       [pinglog.created_at.to_f * 1000, pinglog.ping]
     end
