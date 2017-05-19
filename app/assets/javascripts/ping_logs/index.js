@@ -3,7 +3,7 @@ $(document).ready(function() {
 
     var seriesOptions = [],
         seriesCounter = 0,
-        names = ['45.32.171.18', '107.191.103.239', '200.147.67.142'];
+        names = ['50.116.39.117', '45.32.213.58', '107.191.103.239', '200.147.67.142'];
 
     /**
      * Create the chart when all data is loaded
@@ -90,7 +90,7 @@ $(document).ready(function() {
                     count: 1,
                     text: '10m'
                 }, {
-                    type: 'hour',
+                    type: 'ytd',
                     text: 'YTD'
                 }, {
                     type: 'month',

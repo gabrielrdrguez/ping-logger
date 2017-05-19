@@ -1,4 +1,5 @@
 class ApplicationJob < ActiveJob::Base
+  # include Sidekiq::Worker
   queue_as :default
   SLEEP_SECONDS = 0.5
 
