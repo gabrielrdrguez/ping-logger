@@ -20,7 +20,7 @@ namespace :ping do
     ip_array = []
     while true do
       ActiveRecord::Base.transaction do
-        if (last_check - Time.zone.now) < 30.seconds
+        if (Time.zone.now - last_check ) > 30.seconds
           ip_array = Ip.pluck(:ip)
           last_check = Time.zone.now
         end

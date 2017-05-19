@@ -1,0 +1,66 @@
+<h1 id="ping-log-page">Log</h1>
+<div clas="container">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <table id="log" class="display" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+          <th>ip</th>
+          <th>ping</th>
+          <th>data</th>
+          <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @ips.each do |ip|  %>
+            <tr>
+              <td><%= ip.ip %></td>
+              <td><%= ip.descricao %></td>
+              <td><%= ip.created_at %> </td>
+              <td>
+
+                <%= link_to ip, method: :delete, data: { confirm: 'Are you sure?' }  do %>
+                  <button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i> </button></td>
+                <% end  %>
+
+
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12" style="display: flex; align-items: center;">
+    <div class="form-control">
+
+    <%= form_for Ip.new do |f| %>
+          <div class="form-group">
+              <div class="col-md-3">
+                <%= f.label :ip, 'IP' %>
+              </div>
+              <div class="col-md-3">
+                <%= f.text_field :ip %>
+              </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-3">
+              <%= f.label :descricao, 'Descricao' %>
+            </div>
+              <div class="col-md-3">
+              <%= f.text_field :descricao %>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-3">
+              <%= f.submit 'Adicionar IP', class: 'btn btn-primary' %>
+            </div>
+          </div>
+    <% end  %>
+    </div>
+  </div>
+</div>
+</div>
