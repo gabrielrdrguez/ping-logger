@@ -17,7 +17,7 @@ namespace :ping do
     Rails.logger.level = Logger::DEBUG
     sleep_seconds = 0.2
     last_check = Time.zone.now
-    ip_array = []
+    ip_array = Ip.pluck(:ip)
     while true do
       ActiveRecord::Base.transaction do
         if (Time.zone.now - last_check ) > 30.seconds
